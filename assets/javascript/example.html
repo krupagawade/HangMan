@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic JavaScript Dump</title>
+
+  <style>
+    .class1 {
+      font-size: 150px;
+      color: blue;
+    }
+  </style>
+
+</head>
+  <body>
+
+    <!-- We created an empty HTML div. Note that there is no content inside. -->
+    <div id="empty-div"></div>
+
+
+    <!-- We now create a new JavaScript script. -->
+    <script type="text/javascript">
+
+      var targetDiv = document.getElementById("empty-div");
+      targetDiv.innerHTML = "Hi";
+      
+      for(var i= 0; i < 99; i++) {
+        var newDiv = document.createElement("div");
+        targetDiv.appendChild(newDiv);
+
+        newDiv.innerHTML = "K";
+
+        newDiv.setAttribute("class", "class1");
+      }
+  
+      </script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <title>HangMan</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="assets/javascript/game.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    </head>
+
+    <body>
+        <header>
+                <div class="page-header text-center">
+                        <h1 class="text-center">HangMan</h1>
+                        <p>
+                            <button class="btn btn-md btn-success" onclick="getNewGuess()" >Click to Guess City</button>
+                        </p>
+                </div>
+        </header>
+       <div class="container-fluid table">
+           <table class="table">
+               <td class="col-md-5 class=text-center" style="border-style: none">
+                    <div id="win"></div>      
+                    <div id="lost"></div>     
+                </td>
+           
+            <td style="border-style: none" class="text-center">
+                <h2><div id="citygame"></div></h2>
+                <br>
+                <div id="characters"></div>
+                <br>
+                <div id="attempts"></div>
+            </td>
+        </table>
+        </div> 
+       <br>
+       <div id="cityName"></div>
+        
+       <div id="cityInfo"></div>
+
+       <div> <img id="cityImg" width="200px" height="200px" hidden="hidden"> </div>
+
+       <div ID="cityInfo"></div>
+
+        <script type="text/javascript">
+            isGameRunning = true;
+            function getNewGuess(){
+                this.document.querySelector("#citygame").innerHTML = getCity();
+                document.getElementById("cityImg").style.display = "none";
+                isGameRunning = true;
+                resetCity();
+                displayInfo();
+            }
+
+            document.onkeyup = function(event){
+//                document.querySelector("#citygame").innerHTML = userInput(event.key.toLowerCase());
+                if(isGameRunning){
+                    var res = userInput(event.key.toLowerCase());
+                    if (res === 1){
+                        //Game Won
+                        document.querySelector("#cityName").innerHTML = "<h4>You Win!! <BR> City Name is - " + cityDetails[3] + "</h4>";                        
+                        document.querySelector("#cityInfo").innerHTML = "<p><h5>" + cityDetails[1] + "</p></h5>";                        
+                        document.getElementById("cityImg").style.display = "block";
+                        document.getElementById("cityImg").src = cityDetails[2];
+                        reset();
+                        isGameRunning=false;
+//                        document.querySelector("#citygame").innerHTML = getCity();             
+                    }
+                    if (res === 2){
+                        //Game Lost
+                        document.querySelector("#lost").innerHTML = "Lost - " +lost ;                        
+                        document.querySelector("#cityName").innerHTML = "You Lost. <BR> Click button to guess new city." ;                        
+                        document.querySelector("#cityInfo").innerHTML = "";                        
+                        document.getElementById("cityImg").src = "";
+                        document.getElementById("cityImg").style.display = "none";
+                        reset();
+                        isGameRunning=false;
+//                        document.querySelector("#citygame").innerHTML = getCity();             
+                    }
+                    if(res === 0){
+                        document.querySelector("#citygame").innerHTML = displayCity();                                 
+                    }
+                }
+                displayInfo();                
+        }            
+        function displayInfo(){
+            document.querySelector("#win").innerHTML = "<h3>Wins - " + wins +"</h3>";
+            document.querySelector("#lost").innerHTML = "<h3>Lost - " + lost +"</h3>";
+            if(isGameRunning){
+                document.querySelector("#attempts").innerHTML = "<h4># Attempts left - " + attempts +"</h4>";
+                document.querySelector("#characters").innerHTML = "<h4># Character Entered " + charEntered +"</h4>";
+            }
+            else{
+                document.querySelector("#attempts").innerHTML = "";
+                document.querySelector("#characters").innerHTML = "";
+                document.querySelector("#citygame").innerHTML = "<h4>Click Button to guess next city</h4>";
+            }
+        }
+        function resetCity(){
+            document.querySelector("#cityName").innerHTML = "";                        
+            document.querySelector("#cityInfo").innerHTML = "";                        
+            document.getElementById("cityImg").style.display = "none";
+            document.getElementById("cityImg").src = "";
+        }
+    </script>
+    </body>
+</html>
